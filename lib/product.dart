@@ -8,42 +8,29 @@ import 'package:hexcolor/hexcolor.dart';
 class Product {
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
-        orderID: json['OrderID'],
-        customerID: json['CustomerID'],
-        employeeID: json['EmployeeID'],
-        orderDate: DateTime.parse(json['OrderDate']),
-        shippedDate: DateTime.parse(json['ShippedDate']),
-        freight: json['Freight'],
-        shipName: json['ShipName'],
-        shipAddress: json['ShipAddress'],
-        shipCity: json['ShipCity'],
-        shipPostelCode: json['ShipPostelCode'],
-        shipCountry: json['ShipCountry']);
+        loc: json['loc'],
+        confirmedCasesIndian: json['confirmedCasesIndian'],
+        deaths: json['deaths'],
+        // orderDate: DateTime.parse(json['OrderDate']),
+        // shippedDate: DateTime.parse(json['ShippedDate']),
+        totalConfirmed: json['totalConfirmed']);
+    // shipName: json['ShipName'],
+    // shipAddress: json['ShipAddress'],
+    // shipCity: json['ShipCity'],
+    // shipPostelCode: json['ShipPostelCode'],
+    // shipCountry: json['ShipCountry']);
   }
 
-  Product(
-      {this.orderID,
-      this.customerID,
-      this.employeeID,
-      this.orderDate,
-      this.shippedDate,
-      this.freight,
-      this.shipName,
-      this.shipAddress,
-      this.shipCity,
-      this.shipPostelCode,
-      this.shipCountry});
-  int? orderID;
-  String? customerID;
-  int? employeeID;
-  DateTime? orderDate;
-  DateTime? shippedDate;
-  double? freight;
-  String? shipName;
-  String? shipAddress;
-  String? shipCity;
-  int? shipPostelCode;
-  String? shipCountry;
+  Product({
+    this.loc,
+    this.confirmedCasesIndian,
+    this.deaths,
+    this.totalConfirmed,
+  });
+  String? loc;
+  int? confirmedCasesIndian;
+  int? deaths;
+  int? totalConfirmed;
 }
 
 class JsonDataGridSource extends DataGridSource {
@@ -57,14 +44,13 @@ class JsonDataGridSource extends DataGridSource {
   void buildDataGridRow() {
     dataGridRows = productlist.map<DataGridRow>((dataGridRow) {
       return DataGridRow(cells: [
-        DataGridCell<int>(columnName: 'orderID', value: dataGridRow.orderID),
-        DataGridCell<String>(
-            columnName: 'customerID', value: dataGridRow.customerID),
+        DataGridCell<String>(columnName: 'Location', value: dataGridRow.loc),
         DataGridCell<int>(
-            columnName: 'employeeID', value: dataGridRow.employeeID),
-        DataGridCell<DateTime>(
-            columnName: 'orderDate', value: dataGridRow.orderDate),
-        DataGridCell<double>(columnName: 'freight', value: dataGridRow.freight),
+            columnName: 'Confirmed Cases',
+            value: dataGridRow.confirmedCasesIndian),
+        DataGridCell<int>(columnName: 'Deaths', value: dataGridRow.deaths),
+        DataGridCell<int>(
+            columnName: 'Total Confirm', value: dataGridRow.totalConfirmed),
       ]);
     }).toList(growable: false);
   }
@@ -80,7 +66,7 @@ class JsonDataGridSource extends DataGridSource {
         alignment: Alignment.center,
         padding: EdgeInsets.all(8.0),
         child: Text(
-          row.getCells()[0].value.toString(),
+          row.getCells()[0].value,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
@@ -89,7 +75,7 @@ class JsonDataGridSource extends DataGridSource {
         color: HexColor("#ff5b7d"),
         alignment: Alignment.center,
         padding: EdgeInsets.all(8.0),
-        child: Text(row.getCells()[1].value,
+        child: Text(row.getCells()[1].value.toString(),
             overflow: TextOverflow.ellipsis,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ),
@@ -105,16 +91,7 @@ class JsonDataGridSource extends DataGridSource {
         color: HexColor("#ff5b7d"),
         alignment: Alignment.center,
         padding: EdgeInsets.all(8.0),
-        child: Text(
-            DateFormat('MM/dd/yyyy').format(row.getCells()[3].value).toString(),
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-      ),
-      Container(
-        color: HexColor("#ff5b7d"),
-        alignment: Alignment.center,
-        padding: EdgeInsets.all(8.0),
-        child: Text(row.getCells()[4].value.toString(),
+        child: Text(row.getCells()[3].value.toString(),
             overflow: TextOverflow.ellipsis,
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
       ),

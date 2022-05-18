@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -20,13 +22,28 @@ class _JsonDataGridState extends State<JsonDataGrid> {
     List<GridColumn> columns;
     columns = ([
       GridColumn(
-        columnName: 'orderID',
-        width: 70,
+        columnName: 'Loc',
+        allowSorting: true,
+        width: 120,
+        label: Container(
+            color: HexColor("#2e2835"),
+            padding: EdgeInsets.all(8),
+            alignment: Alignment.center,
+            child: Text('Location',
+                overflow: TextOverflow.clip,
+                softWrap: true,
+                style: TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.bold))),
+      ),
+      GridColumn(
+        columnName: 'confirmedCasesIndian',
+        allowSorting: true,
+        width: 120,
         label: Container(
           color: HexColor("#2e2835"),
           padding: EdgeInsets.all(8),
           alignment: Alignment.center,
-          child: Text('Order ID',
+          child: Text('Confirmed Indian Cases',
               overflow: TextOverflow.clip,
               softWrap: true,
               style:
@@ -34,28 +51,15 @@ class _JsonDataGridState extends State<JsonDataGrid> {
         ),
       ),
       GridColumn(
-        columnName: 'customerID',
-        width: 95,
-        label: Container(
-          color: HexColor("#2e2835"),
-          padding: EdgeInsets.all(8),
-          alignment: Alignment.center,
-          child: Text('Customer ID',
-              overflow: TextOverflow.clip,
-              softWrap: true,
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        ),
-      ),
-      GridColumn(
-        columnName: 'Emp ID',
-        width: 65,
+        columnName: 'deaths',
+        allowSorting: true,
+        width: 120,
         label: Container(
           color: HexColor("#2e2835"),
           padding: EdgeInsets.all(8),
           alignment: Alignment.center,
           child: Text(
-            'Emp ID',
+            'Deaths',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             overflow: TextOverflow.clip,
             softWrap: true,
@@ -63,32 +67,21 @@ class _JsonDataGridState extends State<JsonDataGrid> {
         ),
       ),
       GridColumn(
-        columnName: 'orderDate',
-        width: 100,
+        columnName: 'totalConfirmed',
+        allowSorting: true,
+        width: 120,
         label: Container(
           color: HexColor("#2e2835"),
           padding: EdgeInsets.all(8),
           alignment: Alignment.center,
           child: Text(
-            'Order Date',
+            'Total Confirmed Cases',
             style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             overflow: TextOverflow.clip,
             softWrap: true,
           ),
         ),
       ),
-      GridColumn(
-        columnName: 'freight',
-        width: 80,
-        label: Container(
-          color: HexColor("#2e2835"),
-          padding: EdgeInsets.all(8),
-          alignment: Alignment.center,
-          child: Text('Freight',
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-        ),
-      )
     ]);
     return columns;
   }
@@ -110,7 +103,7 @@ class _JsonDataGridState extends State<JsonDataGrid> {
                 height: 40,
               ),
               Text(
-                "PRODUCT TABLE",
+                "COVID ANALYSIS TABLE",
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
@@ -138,7 +131,7 @@ class _JsonDataGridState extends State<JsonDataGrid> {
                 height: 40,
               ),
               Text(
-                "PRODUCT CHART",
+                "COVID ANALYSIS CHART",
                 style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

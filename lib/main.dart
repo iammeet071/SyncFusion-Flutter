@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:project/api.dart';
 import 'package:project/datagrid.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -20,6 +21,13 @@ class MyApp extends StatelessWidget {
       theme:
           ThemeData(primarySwatch: Colors.blue, brightness: Brightness.light),
       home: JsonDataGrid(),
+      // home: Container(
+      //     child: ElevatedButton(
+      //   onPressed: () {
+      //     generateProductList();
+      //   },
+      //   child: Text("press"),
+      // )),
     );
   }
 }

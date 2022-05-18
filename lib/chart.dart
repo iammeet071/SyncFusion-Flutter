@@ -41,7 +41,13 @@ class _LineChartState extends State<LineChart> {
             builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
               return snapshot.hasData
                   ? SfCartesianChart(
+                      primaryYAxis:
+                          CategoryAxis(title: AxisTitle(text: "Total Cases")),
+                      primaryXAxis: CategoryAxis(
+                          title: AxisTitle(text: "Total Deaths"),
+                          edgeLabelPlacement: EdgeLabelPlacement.shift),
                       tooltipBehavior: _tooltipBehavior,
+
                       palette: [HexColor("#ff5b7d"), HexColor("#2e2835")],
                       borderColor: Colors.red,
                       plotAreaBorderColor: Colors.red,
@@ -52,25 +58,40 @@ class _LineChartState extends State<LineChart> {
                       // ignore: prefer_const_literals_to_create_immutables
                       series: <ChartSeries>[
                         LineSeries<Product, dynamic>(
-                          enableTooltip: true,
-                          name: "Product 1",
-                          dataSource: productlist.sublist(0, 30),
-                          xValueMapper: (Product product, _) =>
-                              product.orderID!.toInt(),
-                          yValueMapper: (Product product, _) =>
-                              product.freight!.toDouble(),
-                        ),
+                            xAxisName: "Total Cases",
+                            yAxisName: "Total Deaths",
+                            enableTooltip: true,
+                            name: "September 2020",
+                            dataSource: productlist,
+                            xValueMapper: (Product product, _) =>
+                                product.deaths!.toInt(),
+                            yValueMapper: (Product product, _) =>
+                                product.confirmedCasesIndian!.toInt(),
+                            sortingOrder: SortingOrder.ascending,
+                            sortFieldValueMapper: (Product product, _) =>
+                                product.deaths),
                         LineSeries<Product, dynamic>(
-                          name: "Product 2",
-                          dataSource: productlist.sublist(0, 30),
-                          xValueMapper: (Product product, _) =>
-                              product.orderID!.toInt(),
-                          yValueMapper: (Product product, _) =>
-                              product.employeeID!.toDouble(),
-                        ),
+                            xAxisName: "Total Cases",
+                            yAxisName: "Total Deaths",
+                            enableTooltip: true,
+                            name: "October 2020",
+                            dataSource: productlist1.sublist(20, 35),
+                            xValueMapper: (Product product, _) =>
+                                product.deaths!.toInt(),
+                            yValueMapper: (Product product, _) =>
+                                product.confirmedCasesIndian!.toInt(),
+                            sortingOrder: SortingOrder.ascending,
+                            sortFieldValueMapper: (Product product, _) =>
+                                product.deaths),
+                        // LineSeries<Product, dynamic>(
+                        //   name: "Product 2",
+                        //   dataSource: productlist.sublist(0, 1),
+                        //   xValueMapper: (Product product, _) =>
+                        //       product.deaths!.toInt(),
+                        //   yValueMapper: (Product product, _) =>
+                        //       product.totalConfirmed!.toDouble(),
+                        // ),
                       ],
-                      primaryXAxis: NumericAxis(
-                          edgeLabelPlacement: EdgeLabelPlacement.shift),
                     )
                   : Center(
                       child: CircularProgressIndicator(
